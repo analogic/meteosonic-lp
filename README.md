@@ -41,6 +41,17 @@ The main firmware parameters are configured in `platformio.ini` through `build_f
 | `COAP_SERVER` | `mqtt.analogic.cz` | CoAP endpoint |
 | `COAP_PATH` | `/meteo-80B54EF07A78` | CoAP resource path |
 
+### Why CoAP Instead Of MQTT
+
+CoAP was selected mainly for battery life and simpler operation on NB-IoT links:
+
+- Lower protocol overhead: CoAP over UDP sends fewer bytes than MQTT over TCP for this small, periodic payload, reducing modem on-air and active time.
+- Better fit for sleepy devices: this probe wakes, publishes one message, and sleeps again. CoAP request/response maps directly to that pattern without maintaining a broker session.
+- Faster wake-to-publish path: avoiding TCP and MQTT session setup can reduce connection latency and modem power draw during each publish cycle.
+- Simpler firmware state: no keepalive handling, broker reconnect loop, or QoS/session bookkeeping is required for this one-shot telemetry flow.
+
+MQTT is still a strong choice for always-on or command-heavy devices. For this project's low-power, periodic uplink use case, CoAP provides a better energy/complexity tradeoff.
+
 ### Boot Flow
 
 On every boot, the firmware:
