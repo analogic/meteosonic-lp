@@ -38,7 +38,7 @@ The main firmware parameters are configured in `platformio.ini` through `build_f
 | `LOW_BATTERY_RECOVER_MV` | `3800` | (mV) Leave low-battery guard only after reaching this voltage |
 | `LOW_BATTERY_CHECK_INTERVAL_SEC` | `1200` | (s) Check interval while in low-battery guard |
 | `MODEM_APN` | `lpwa.vodafone.com` | NB-IoT APN |
-| `COAP_SERVER` | `mqtt.analogic.cz` | CoAP endpoint |
+| `COAP_SERVER` | `example.coap.com` | CoAP endpoint |
 | `COAP_PATH` | `/meteo-80B54EF07A78` | CoAP resource path |
 
 ### Why CoAP Instead Of MQTT
